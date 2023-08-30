@@ -14,6 +14,10 @@ chai.use(chaiHttp);
 const { expect } = chai;
 
 describe('Teams test', function() {
+  afterEach(function() {
+    sinon.restore();
+  });
+  
   it('Should return all teams', async function() {
     sinon.stub(SequelizeTeam, 'findAll').resolves(teams as any);
 
@@ -36,8 +40,9 @@ describe('Teams test', function() {
     sinon.stub(SequelizeTeam, 'findByPk').resolves(null);
 
     const { status, body } = await chai.request(app).get('/teams/10000');
-
+    console.log(body);
+    
     expect(status).to.equal(404);
-    expect(body).to.deep.equal('Team 10000 not found');
+    expect(body).to.deep.equal({ message:'Team 10000 not found' });
   });
 });

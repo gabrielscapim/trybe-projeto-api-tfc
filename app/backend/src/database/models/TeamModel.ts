@@ -1,5 +1,3 @@
-// src/database/models/SequelizeBook
-
 import {
   DataTypes,
   Model,
@@ -25,6 +23,7 @@ TeamModel.init({
   teamName: {
     type: DataTypes.STRING(255),
     allowNull: false,
+    field: 'team_name',
   },
 }, {
   sequelize: db,

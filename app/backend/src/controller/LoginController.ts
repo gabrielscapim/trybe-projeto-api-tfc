@@ -12,7 +12,7 @@ export default class LoginController {
       const serviceResponse = await this.loginService.login(email, password);
 
       if (serviceResponse.status !== 'SUCCESSFUL') {
-        return res.status(404).json(serviceResponse.data);
+        return res.status(401).json(serviceResponse.data);
       }
 
       return res.status(200).json(serviceResponse.data);

@@ -13,7 +13,7 @@ export default class LoginService {
     const user = await this.userModel.findByEmail(email);
 
     if (!user || !compareSync(password, user.password)) {
-      return { status: 'NOT_FOUND', data: { message: 'Invalid password or email' } };
+      return { status: 'NOT_FOUND', data: { message: 'Invalid email or password' } };
     }
 
     const { password: _password, ...userWithoutPassword } = user;

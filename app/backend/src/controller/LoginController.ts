@@ -28,10 +28,6 @@ export default class LoginController {
     try {
       const { payload: { role } } = req.body;
 
-      if (!role) {
-        return res.status(404).json({ message: 'Role not found' });
-      }
-
       return res.status(200).json({ role });
     } catch (error) {
       console.log(error);

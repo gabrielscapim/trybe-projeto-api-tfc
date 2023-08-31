@@ -16,8 +16,9 @@ export default class LoginService {
       return { status: 'NOT_FOUND', data: { message: 'Invalid email or password' } };
     }
 
-    const { password: _password, ...userWithoutPassword } = user;
-    const token = JWT.sign(userWithoutPassword);
+    const { id, role, username } = user;
+
+    const token = JWT.sign({ id, email, role, username });
 
     return { status: 'SUCCESSFUL', data: token };
   }

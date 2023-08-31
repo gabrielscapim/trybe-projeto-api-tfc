@@ -1,4 +1,4 @@
-import { Request, Response, Router } from 'express';
+import { NextFunction, Request, Response, Router } from 'express';
 import MatchController from '../controller/MatchController';
 import ValidateToken from '../middlewares/ValidateToken';
 import ValidateCreateMatch from '../middlewares/ValidateCreateMatch';
@@ -28,7 +28,8 @@ router.post(
   '',
   ValidateToken.validateToken,
   ValidateCreateMatch.validateTeamsNames,
-  validateCreateMatch.validateTeamsId,
+  (req: Request, res: Response, next: NextFunction) => validateCreateMatch
+    .validateTeamsId(req, res, next),
   (req: Request, res: Response) => matchController.createMatch(req, res),
 );
 

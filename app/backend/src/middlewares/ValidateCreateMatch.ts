@@ -22,8 +22,6 @@ export default class ValidateCreateMatch {
   public async validateTeamsId(req: Request, res: Response, next: NextFunction)
     : Promise<Response | void> {
     const { homeTeamId, awayTeamId } = req.body;
-    console.log(homeTeamId);
-    console.log(this.teamModel);
     const homeTeam = await this.teamModel.findById(Number(homeTeamId));
     const awayTeam = await this.teamModel.findById(Number(awayTeamId));
 

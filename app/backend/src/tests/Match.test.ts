@@ -9,6 +9,7 @@ import { finishedMatches, match, matches, matchesInProgress, newMatchParams } fr
 import SequelizeMatch from '../database/models/SequelizeMatch';
 import { user } from '../mocks/User.mock';
 import SequelizeUser from '../database/models/SequelizeUser';
+import SequelizeTeam from '../database/models/SequelizeTeam';
 
 chai.use(chaiHttp);
 
@@ -157,5 +158,24 @@ describe('Matches test', function() {
     
     expect(status).to.equal(422);
     expect(body).to.deep.equal({ message: 'It is not possible to create a match with two equal teams' });
+  })
+
+  it('Should not create a match if teams does not exists', async function() {
+    sinon.stub(SequelizeUser, 'findOne').resolves(user as any);
+    sinon.stub(SequelizeTeam, 'findByPk').resolves(undefined);
+    sinon.stub(SequelizeMatch, 'create').resolves(match as any);
+
+    const { body: { token } } = await chai
+      .request(app).post('/login')
+      .send({ email: 'admin@admin.com', password: 'secret_admin' });
+
+    const { status, body } = await chai
+      .request(app)
+      .post('/matches')
+      .set('Authorization', `Bearer ${token}`)
+      .send({ ...newMatchParams, awayTeamId: 160, homeTeamId: 159 })
+    
+    expect(status).to.equal(404);
+    expect(body).to.deep.equal({ message: 'There is no team with such id!' });
   })
 })

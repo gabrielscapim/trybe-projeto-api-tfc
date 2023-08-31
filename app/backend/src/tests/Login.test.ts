@@ -55,5 +55,36 @@ describe('Login test', function() {
 
     expect(status).to.equal(200);
     expect(body).to.have.key('token');
-  })
+  });
+
+  it('Should return an error if token is null', async function () {
+    const { status, body } = await chai.request(app).get('/login/role');
+
+    expect(status).to.equal(401);
+    expect(body).to.deep.equal({ message: 'Token not found' });
+  });
+
+  it('Should return an error if token is incorrect', async function () {
+    const { status, body } = await chai
+      .request(app)
+      .get('/login/role')
+      .set('Authorization', 'Bearer invalidToken');
+
+    expect(status).to.equal(401);
+    expect(body).to.deep.equal({ message: 'Token must be a valid token' });
+  });
+
+  it('Should return user role if token is correct', async function () {
+    sinon.stub(SequelizeUser, 'findOne').resolves(user as any);
+
+    const { body: { token } } = await chai.request(app).post('/login').send({ email: 'admin@admin.com', password: 'secret_admin' });
+
+    const { status, body } = await chai
+      .request(app)
+      .get('/login/role')
+      .set('Authorization', `Bearer ${token}`);
+    
+    expect(status).to.equal(200);
+    expect(body.role).to.be.equal('admin');
+  });
 });

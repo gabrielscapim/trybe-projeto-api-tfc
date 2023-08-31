@@ -70,5 +70,56 @@ describe('Matches test', function() {
 
     expect(status).to.equal(200);
     expect(body).to.deep.equal({ message: 'Finished' });
+  });
+
+  it('Should not finish a match', async function() {
+    sinon.stub(SequelizeUser, 'findOne').resolves(user as any);
+    sinon.stub(SequelizeMatch, 'update').resolves([0] as any);
+
+    const { body: { token } } = await chai
+      .request(app).post('/login')
+      .send({ email: 'admin@admin.com', password: 'secret_admin' });
+
+    const { status, body } = await chai
+      .request(app)
+      .patch('/matches/1/finish')
+      .set('Authorization', `Bearer ${token}`);
+
+    expect(status).to.equal(404);
+    expect(body).to.deep.equal({ message: 'Unable to finish the match' });
+  })
+
+  it('Should update a match', async function() {
+    sinon.stub(SequelizeUser, 'findOne').resolves(user as any);
+    sinon.stub(SequelizeMatch, 'update').resolves([1] as any);
+
+    const { body: { token } } = await chai
+      .request(app).post('/login')
+      .send({ email: 'admin@admin.com', password: 'secret_admin' });
+
+    const { status, body } = await chai
+      .request(app)
+      .patch('/matches/1')
+      .set('Authorization', `Bearer ${token}`);
+    
+    expect(status).to.equal(200);
+    expect(body).to.deep.equal({ message: 'Match updated' });
+  })
+
+  it('Should not update a match', async function() {
+    sinon.stub(SequelizeUser, 'findOne').resolves(user as any);
+    sinon.stub(SequelizeMatch, 'update').resolves([0] as any);
+
+    const { body: { token } } = await chai
+      .request(app).post('/login')
+      .send({ email: 'admin@admin.com', password: 'secret_admin' });
+
+    const { status, body } = await chai
+      .request(app)
+      .patch('/matches/1')
+      .set('Authorization', `Bearer ${token}`);
+    
+    expect(status).to.equal(404);
+    expect(body).to.deep.equal({ message: 'Unable to update match' });
   })
 })

@@ -1,7 +1,11 @@
-import { ServiceResponse, ServiceResponseMessage } from '../Interfaces/IServiceResponse';
+import {
+  ServiceResponse,
+  ServiceResponseMessage,
+} from '../Interfaces/IServiceResponse';
 import IMatchModel from '../Interfaces/matches/IMatchModel';
 import MatchModel from '../models/MatchModel';
 import IMatch from '../Interfaces/matches/IMatch';
+import IUpdateMatchParams from '../Interfaces/matches/IUpdateMatchParams';
 
 export default class MatchService {
   constructor(
@@ -32,5 +36,16 @@ export default class MatchService {
     }
 
     return { status: 'SUCCESSFUL', data: { message: 'Finished' } };
+  }
+
+  public async updateMatch(updateMatchParams: IUpdateMatchParams):
+  Promise<ServiceResponse<ServiceResponseMessage>> {
+    const responseFromModel = await this.matchModel.updateMatch(updateMatchParams);
+
+    if (!responseFromModel) {
+      return { status: 'ERROR', data: { message: 'Unable to update match' } };
+    }
+
+    return { status: 'SUCCESSFUL', data: { message: 'Match updated' } };
   }
 }

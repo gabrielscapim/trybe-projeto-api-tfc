@@ -6,6 +6,8 @@ export default class LoginController {
     private loginService = new LoginService(),
   ) { }
 
+  private internalErrorMessage = { message: 'Erro interno' };
+
   public async login(req: Request, res: Response) {
     try {
       const { email, password } = req.body;
@@ -18,7 +20,22 @@ export default class LoginController {
       return res.status(200).json({ token: serviceResponse.data });
     } catch (error) {
       console.log(error);
-      return res.status(500).json({ message: 'Erro interno' });
+      return res.status(500).json(this.internalErrorMessage);
+    }
+  }
+
+  public getUserRole(req: Request, res: Response) {
+    try {
+      const { payload: { role } } = req.body;
+
+      if (!role) {
+        return res.status(404).json({ message: 'Role not found' });
+      }
+
+      return res.status(200).json({ role });
+    } catch (error) {
+      console.log(error);
+      return res.status(500).json(this.internalErrorMessage);
     }
   }
 }

@@ -6,7 +6,9 @@ export default class TeamController {
     private teamService = new TeamService(),
   ) { }
 
-  public async findAll(_req: Request, res: Response) {
+  private internalErrorMessage = { message: 'Erro interno' };
+
+  public async findAll(req: Request, res: Response) {
     try {
       const serviceResponse = await this.teamService.findAll();
 
@@ -17,7 +19,7 @@ export default class TeamController {
       return res.status(200).json(serviceResponse.data);
     } catch (error) {
       console.log(error);
-      return res.status(500).json({ message: 'Erro interno' });
+      return res.status(500).json(this.internalErrorMessage);
     }
   }
 
@@ -33,7 +35,7 @@ export default class TeamController {
       return res.status(200).json(serviceResponse.data);
     } catch (error) {
       console.log(error);
-      return res.status(500).json({ message: 'Erro interno' });
+      return res.status(500).json(this.internalErrorMessage);
     }
   }
 }

@@ -6,6 +6,7 @@ import IMatchModel from '../Interfaces/matches/IMatchModel';
 import MatchModel from '../models/MatchModel';
 import IMatch from '../Interfaces/matches/IMatch';
 import IUpdateMatchParams from '../Interfaces/matches/IUpdateMatchParams';
+import ICreateMatchParams from '../Interfaces/matches/ICreateMatchParams';
 
 export default class MatchService {
   constructor(
@@ -47,5 +48,16 @@ export default class MatchService {
     }
 
     return { status: 'SUCCESSFUL', data: { message: 'Match updated' } };
+  }
+
+  public async createMatch(createMatchParams: ICreateMatchParams):
+  Promise<ServiceResponse<IMatch>> {
+    const matchCreated = await this.matchModel.createMatch(createMatchParams);
+
+    if (!matchCreated) {
+      return { status: 'ERROR', data: { message: 'Unable to create match' } };
+    }
+
+    return { status: 'SUCCESSFUL', data: matchCreated };
   }
 }

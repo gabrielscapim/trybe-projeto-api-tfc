@@ -61,4 +61,22 @@ export default class MatchController {
       return res.status(500).json(this.internalErrorMessage);
     }
   }
+
+  public async createMatch(req: Request, res: Response) {
+    try {
+      const { homeTeamId, homeTeamGoals, awayTeamId, awayTeamGoals } = req.body;
+      const serviceResponse = await this
+        .matchService
+        .createMatch({ homeTeamId, homeTeamGoals, awayTeamId, awayTeamGoals });
+
+      if (serviceResponse.status !== 'SUCCESSFUL') {
+        return res.status(404).json(serviceResponse.data);
+      }
+
+      return res.status(201).json(serviceResponse.data);
+    } catch (error) {
+      console.log(error);
+      return res.status(500).json(this.internalErrorMessage);
+    }
+  }
 }

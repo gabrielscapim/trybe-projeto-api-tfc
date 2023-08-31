@@ -3,6 +3,7 @@ import IMatch from '../Interfaces/matches/IMatch';
 import IMatchModel from '../Interfaces/matches/IMatchModel';
 import SequelizeMatch from '../database/models/SequelizeMatch';
 import IUpdateMatchParams from '../Interfaces/matches/IUpdateMatchParams';
+import ICreateMatchParams from '../Interfaces/matches/ICreateMatchParams';
 
 export default class MatchModel implements IMatchModel {
   private matchModel = SequelizeMatch;
@@ -48,5 +49,20 @@ export default class MatchModel implements IMatchModel {
     );
 
     return status;
+  }
+
+  public async createMatch(createMatchParams: ICreateMatchParams): Promise<IMatch> {
+    const dbData = await this.matchModel.create({ ...createMatchParams, inProgress: true });
+    const { id, homeTeamId, homeTeamGoals, awayTeamId, awayTeamGoals, inProgress }: IMatch = dbData;
+    const matchCreated = {
+      id,
+      homeTeamId,
+      homeTeamGoals,
+      awayTeamId,
+      awayTeamGoals,
+      inProgress,
+    };
+
+    return matchCreated;
   }
 }

@@ -9,7 +9,7 @@ import db from '.';
 import SequelizeTeam from './SequelizeTeam';
 
 class SequelizeMatch extends Model<InferAttributes<SequelizeMatch>,
-InferCreationAttributes<SequelizeTeam>> {
+InferCreationAttributes<SequelizeMatch>> {
   declare id: CreationOptional<number>;
   declare homeTeamId: number;
   declare homeTeamGoals: number;

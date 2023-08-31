@@ -5,7 +5,7 @@ import chaiHttp = require('chai-http');
 
 import { app } from '../app';
 
-import { finishedMatches, matches, matchesInProgress } from '../mocks/Matches.mock';
+import { finishedMatches, match, matches, matchesInProgress } from '../mocks/Matches.mock';
 import SequelizeMatch from '../database/models/SequelizeMatch';
 import { user } from '../mocks/User.mock';
 import SequelizeUser from '../database/models/SequelizeUser';
@@ -121,5 +121,22 @@ describe('Matches test', function() {
     
     expect(status).to.equal(404);
     expect(body).to.deep.equal({ message: 'Unable to update match' });
+  })
+
+  it('Should create a match', async function() {
+    sinon.stub(SequelizeUser, 'findOne').resolves(user as any);
+    sinon.stub(SequelizeMatch, 'create').resolves(match as any);
+
+    const { body: { token } } = await chai
+      .request(app).post('/login')
+      .send({ email: 'admin@admin.com', password: 'secret_admin' });
+
+    const { status, body } = await chai
+      .request(app)
+      .post('/matches')
+      .set('Authorization', `Bearer ${token}`);
+    
+    expect(status).to.equal(201);
+    expect(body).to.deep.equal(match);
   })
 })

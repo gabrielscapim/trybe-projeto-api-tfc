@@ -5,7 +5,7 @@ import chaiHttp = require('chai-http');
 
 import { app } from '../app';
 
-import { finishedMatches, match, matches, matchesInProgress } from '../mocks/Matches.mock';
+import { finishedMatches, match, matches, matchesInProgress, newMatchParams } from '../mocks/Matches.mock';
 import SequelizeMatch from '../database/models/SequelizeMatch';
 import { user } from '../mocks/User.mock';
 import SequelizeUser from '../database/models/SequelizeUser';
@@ -134,9 +134,28 @@ describe('Matches test', function() {
     const { status, body } = await chai
       .request(app)
       .post('/matches')
-      .set('Authorization', `Bearer ${token}`);
+      .set('Authorization', `Bearer ${token}`)
+      .send(newMatchParams)
     
     expect(status).to.equal(201);
     expect(body).to.deep.equal(match);
+  })
+
+  it('Should not create a match if teams are equals', async function() {
+    sinon.stub(SequelizeUser, 'findOne').resolves(user as any);
+    sinon.stub(SequelizeMatch, 'create').resolves(match as any);
+
+    const { body: { token } } = await chai
+      .request(app).post('/login')
+      .send({ email: 'admin@admin.com', password: 'secret_admin' });
+
+    const { status, body } = await chai
+      .request(app)
+      .post('/matches')
+      .set('Authorization', `Bearer ${token}`)
+      .send({ ...newMatchParams, awayTeamId: 16 })
+    
+    expect(status).to.equal(422);
+    expect(body).to.deep.equal({ message: 'It is not possible to create a match with two equal teams' });
   })
 })

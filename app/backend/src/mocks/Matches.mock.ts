@@ -113,9 +113,17 @@ const matchesInProgress = [
 
 const finishedMatches = matches;
 
+const newMatchParams = {
+  homeTeamId: 16,
+  homeTeamGoals: 1,
+  awayTeamId: 8,
+  awayTeamGoals: 1,
+};
+
 export {
   matches,
   match,
   matchesInProgress,
   finishedMatches,
+  newMatchParams,
 };

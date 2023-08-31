@@ -29,4 +29,13 @@ export default class MatchModel implements IMatchModel {
 
     return matches;
   }
+
+  public async finishMatch(id: number): Promise<number> {
+    const [status] = await this.matchModel.update(
+      { inProgress: false },
+      { where: { id } },
+    );
+
+    return status;
+  }
 }

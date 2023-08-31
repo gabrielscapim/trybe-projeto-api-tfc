@@ -7,6 +7,8 @@ import { app } from '../app';
 
 import { finishedMatches, matches, matchesInProgress } from '../mocks/Matches.mock';
 import SequelizeMatch from '../database/models/SequelizeMatch';
+import { user } from '../mocks/User.mock';
+import SequelizeUser from '../database/models/SequelizeUser';
 
 chai.use(chaiHttp);
 
@@ -52,4 +54,21 @@ describe('Matches test', function() {
     expect(status).to.equal(200);
     expect(body).to.deep.equal(finishedMatches);
   });
+
+  it('Should finish a match', async function() {
+    sinon.stub(SequelizeUser, 'findOne').resolves(user as any);
+    sinon.stub(SequelizeMatch, 'update').resolves([1] as any);
+
+    const { body: { token } } = await chai
+      .request(app).post('/login')
+      .send({ email: 'admin@admin.com', password: 'secret_admin' });
+
+    const { status, body } = await chai
+      .request(app)
+      .patch('/matches/1/finish')
+      .set('Authorization', `Bearer ${token}`);
+
+    expect(status).to.equal(200);
+    expect(body).to.deep.equal({ message: 'Finished' });
+  })
 })

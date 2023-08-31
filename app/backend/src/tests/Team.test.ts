@@ -4,7 +4,6 @@ import * as chai from 'chai';
 import chaiHttp = require('chai-http');
 
 import { app } from '../app';
-import Example from '../database/models/ExampleModel';
 
 import SequelizeTeam from '../database/models/SequelizeTeam';
 import { team, teams } from '../mocks/Teams.mock';
@@ -40,7 +39,6 @@ describe('Teams test', function() {
     sinon.stub(SequelizeTeam, 'findByPk').resolves(null);
 
     const { status, body } = await chai.request(app).get('/teams/10000');
-    console.log(body);
     
     expect(status).to.equal(404);
     expect(body).to.deep.equal({ message:'Team 10000 not found' });

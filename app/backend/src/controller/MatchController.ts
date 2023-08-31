@@ -10,7 +10,12 @@ export default class MatchController {
 
   public async findAll(req: Request, res: Response) {
     try {
-      const serviceResponse = await this.matchService.findAll();
+      const { inProgress } = req.query;
+      let serviceResponse = await this.matchService.findAll();
+
+      if (inProgress) {
+        serviceResponse = await this.matchService.findByProgress(String(inProgress));
+      }
 
       if (serviceResponse.status !== 'SUCCESSFUL') {
         return res.status(404).json(serviceResponse.data);

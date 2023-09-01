@@ -1,22 +1,19 @@
-import ITeamModel from '../Interfaces/teams/ITeamModel';
 import IMatchModel from '../Interfaces/matches/IMatchModel';
 import MatchModel from '../models/MatchModel';
-import TeamModel from '../models/TeamModel';
 import { ServiceResponse } from '../Interfaces/IServiceResponse';
-import HomeLeaderboard from '../utils/HomeLeaderboard';
+import GenerateLeaderboard from '../utils/GenerateLeaderboard';
 import ILeaderboard from '../Interfaces/leaderboard/ILeaderboard';
 
 export default class LeaderboardService {
   constructor(
     private matchModel: IMatchModel = new MatchModel(),
-    private homeLeaderboard = new HomeLeaderboard(),
+    private homeLeaderboard = new GenerateLeaderboard(),
   ) { }
 
   public async findHomeLeaderboard():Promise<ServiceResponse<ILeaderboard[]>> {
-    const matches = await this.matchModel.findAll();
+    const matches = await this.matchModel.findByProgress('false');
 
     this.homeLeaderboard.calculateHomeLeaderboard(matches);
-    console.log(matches);
 
     const { leaderboard } = this.homeLeaderboard;
 

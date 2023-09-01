@@ -1,0 +1,68 @@
+const leaderboardHome = [
+  {
+    name: 'Corinthians',
+    totalGames: 1,
+    totalPoints: 3,
+    totalVictories: 1,
+    totalDraws: 0,
+    totalLosses: 0,
+    goalsFavor: 3,
+    goalsOwn: 0,
+    goalsBalance: 3,
+    efficiency: 100,
+  },
+  {
+    name: 'São Paulo',
+    totalGames: 1,
+    totalPoints: 1,
+    totalVictories: 0,
+    totalDraws: 1,
+    totalLosses: 0,
+    goalsFavor: 1,
+    goalsOwn: 1,
+    goalsBalance: 0,
+    efficiency: 33.33,
+  },
+  {
+    name: 'Internacional',
+    totalGames: 1,
+    totalPoints: 1,
+    totalVictories: 0,
+    totalDraws: 1,
+    totalLosses: 0,
+    goalsFavor: 1,
+    goalsOwn: 1,
+    goalsBalance: 0,
+    efficiency: 33.33,
+  },
+  {
+    name: 'Botafogo',
+    totalGames: 1,
+    totalPoints: 1,
+    totalVictories: 0,
+    totalDraws: 1,
+    totalLosses: 0,
+    goalsFavor: 0,
+    goalsOwn: 0,
+    goalsBalance: 0,
+    efficiency: 33.33,
+  },
+];
+
+const leaderboardAway = [{
+  name: 'Botafogo',
+  totalGames: 1,
+  totalPoints: 1,
+  totalVictories: 0,
+  totalDraws: 1,
+  totalLosses: 0,
+  goalsFavor: 0,
+  goalsOwn: 0,
+  goalsBalance: 0,
+  efficiency: 33.33,
+}];
+
+export {
+  leaderboardHome,
+  leaderboardAway,
+};

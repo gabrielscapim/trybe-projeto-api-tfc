@@ -7,16 +7,20 @@ import ILeaderboard from '../Interfaces/leaderboard/ILeaderboard';
 export default class LeaderboardService {
   constructor(
     private matchModel: IMatchModel = new MatchModel(),
-    private homeLeaderboard = new Leaderboard(),
+    private leaderboard = new Leaderboard(),
   ) { }
 
-  public async findHomeLeaderboard():Promise<ServiceResponse<ILeaderboard[]>> {
+  public async findLeaderboard(main: string): Promise<ServiceResponse<ILeaderboard[]>> {
     const matches = await this.matchModel.findByProgress('false');
 
-    this.homeLeaderboard.calculateHomeLeaderboard(matches);
-    this.homeLeaderboard.sortLeaderboard();
+    this.leaderboard.calculateLeaderboard(matches, main);
+    this.leaderboard.sortLeaderboard();
 
-    const { leaderboard } = this.homeLeaderboard;
+    const { leaderboard } = this.leaderboard;
+
+    if (!leaderboard) {
+      return { status: 'ERROR', data: { message: 'Unable to get leaderboard' } };
+    }
 
     return { status: 'SUCCESSFUL', data: leaderboard };
   }

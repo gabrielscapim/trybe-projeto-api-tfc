@@ -8,9 +8,10 @@ export default class LeaderboardController {
 
   private internalErrorMessage = { message: 'Erro interno' };
 
-  public async findHomeLeaderboard(_req: Request, res: Response) {
+  public async findLeaderboard(req: Request, res: Response) {
     try {
-      const serviceResponse = await this.leaderboardService.findHomeLeaderboard();
+      const { main } = req.params;
+      const serviceResponse = await this.leaderboardService.findLeaderboard(main);
 
       if (serviceResponse.status !== 'SUCCESSFUL') {
         return res.status(404).json(serviceResponse.data);

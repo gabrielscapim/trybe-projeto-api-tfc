@@ -16,12 +16,10 @@ export default class LeaderboardService {
     this.leaderboard.calculateLeaderboard(matches, main);
     this.leaderboard.sortLeaderboard();
 
-    const { leaderboard } = this.leaderboard;
-
-    if (!leaderboard) {
+    if (!this.leaderboard.leaderboard) {
       return { status: 'ERROR', data: { message: 'Unable to get leaderboard' } };
     }
 
-    return { status: 'SUCCESSFUL', data: leaderboard };
+    return { status: 'SUCCESSFUL', data: this.leaderboard.leaderboard };
   }
 }

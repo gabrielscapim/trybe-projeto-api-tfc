@@ -1,14 +1,14 @@
-export default interface IMatch {
-  id?: number,
+export default interface IMatchFromSequelize {
+  id: number,
   homeTeamId: number,
   homeTeamGoals: number,
   awayTeamId: number,
   awayTeamGoals: number,
   inProgress: boolean,
-  homeTeam?: {
+  homeTeam: {
     teamName: string
   },
-  awayTeam?: {
+  awayTeam: {
     teamName: string
   }
 }

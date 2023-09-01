@@ -49,18 +49,56 @@ const leaderboardHome = [
   },
 ];
 
-const leaderboardAway = [{
-  name: 'Botafogo',
-  totalGames: 1,
-  totalPoints: 1,
-  totalVictories: 0,
-  totalDraws: 1,
-  totalLosses: 0,
-  goalsFavor: 0,
-  goalsOwn: 0,
-  goalsBalance: 0,
-  efficiency: 33.33,
-}];
+const leaderboardAway = [
+  {
+    name: 'Grêmio',
+    totalGames: 1,
+    totalPoints: 1,
+    totalVictories: 0,
+    totalDraws: 1,
+    totalLosses: 0,
+    goalsFavor: 1,
+    goalsOwn: 1,
+    goalsBalance: 0,
+    efficiency: 33.33,
+  },
+  {
+    name: 'Santos',
+    totalGames: 1,
+    totalPoints: 1,
+    totalVictories: 0,
+    totalDraws: 1,
+    totalLosses: 0,
+    goalsFavor: 1,
+    goalsOwn: 1,
+    goalsBalance: 0,
+    efficiency: 33.33,
+  },
+  {
+    name: 'Bahia',
+    totalGames: 1,
+    totalPoints: 1,
+    totalVictories: 0,
+    totalDraws: 1,
+    totalLosses: 0,
+    goalsFavor: 0,
+    goalsOwn: 0,
+    goalsBalance: 0,
+    efficiency: 33.33,
+  },
+  {
+    name: 'Napoli-SC',
+    totalGames: 1,
+    totalPoints: 0,
+    totalVictories: 0,
+    totalDraws: 0,
+    totalLosses: 1,
+    goalsFavor: 0,
+    goalsOwn: 3,
+    goalsBalance: -3,
+    efficiency: 0,
+  },
+];
 
 export {
   leaderboardHome,

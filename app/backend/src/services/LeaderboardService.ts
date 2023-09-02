@@ -10,10 +10,14 @@ export default class LeaderboardService {
     private leaderboard = new Leaderboard(),
   ) { }
 
-  public async findLeaderboard(main: string): Promise<ServiceResponse<ILeaderboard[]>> {
+  public async findLeaderboard(main = ''): Promise<ServiceResponse<ILeaderboard[]>> {
     const matches = await this.matchModel.findByProgress('false');
-
     this.leaderboard.calculateLeaderboard(matches, main);
+
+    if (main === '') {
+      this.leaderboard.calculateLeaderboard(matches);
+    }
+
     this.leaderboard.sortLeaderboard();
 
     if (!this.leaderboard.leaderboard) {

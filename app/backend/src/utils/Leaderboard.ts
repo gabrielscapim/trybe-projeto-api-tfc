@@ -132,14 +132,18 @@ export default class Leaderboard {
     });
   }
 
-  public calculateLeaderboard(matches: IMatch[], main: string): void {
+  public calculateLeaderboard(matches: IMatch[], main = ''): void {
     this._leaderboard = [];
 
     switch (main) {
       case 'home':
         this.calculateHomeLeaderboard(matches);
         break;
+      case 'away':
+        this.calculateAwayLeaderboard(matches);
+        break;
       default:
+        this.calculateHomeLeaderboard(matches);
         this.calculateAwayLeaderboard(matches);
         break;
     }

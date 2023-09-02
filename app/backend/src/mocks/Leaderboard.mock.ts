@@ -1,4 +1,4 @@
-const leaderboardHome = [
+const homeLeaderboard = [
   {
     name: 'Corinthians',
     totalGames: 1,
@@ -49,7 +49,7 @@ const leaderboardHome = [
   },
 ];
 
-const leaderboardAway = [
+const awayLeaderboard = [
   {
     name: 'Grêmio',
     totalGames: 1,
@@ -100,7 +100,107 @@ const leaderboardAway = [
   },
 ];
 
+const fullLeaderboard = [
+  {
+    name: 'Corinthians',
+    totalGames: 1,
+    totalPoints: 3,
+    totalVictories: 1,
+    totalDraws: 0,
+    totalLosses: 0,
+    goalsFavor: 3,
+    goalsOwn: 0,
+    goalsBalance: 3,
+    efficiency: 100,
+  },
+  {
+    name: 'São Paulo',
+    totalGames: 1,
+    totalPoints: 1,
+    totalVictories: 0,
+    totalDraws: 1,
+    totalLosses: 0,
+    goalsFavor: 1,
+    goalsOwn: 1,
+    goalsBalance: 0,
+    efficiency: 33.33,
+  },
+  {
+    name: 'Internacional',
+    totalGames: 1,
+    totalPoints: 1,
+    totalVictories: 0,
+    totalDraws: 1,
+    totalLosses: 0,
+    goalsFavor: 1,
+    goalsOwn: 1,
+    goalsBalance: 0,
+    efficiency: 33.33,
+  },
+  {
+    name: 'Grêmio',
+    totalGames: 1,
+    totalPoints: 1,
+    totalVictories: 0,
+    totalDraws: 1,
+    totalLosses: 0,
+    goalsFavor: 1,
+    goalsOwn: 1,
+    goalsBalance: 0,
+    efficiency: 33.33,
+  },
+  {
+    name: 'Santos',
+    totalGames: 1,
+    totalPoints: 1,
+    totalVictories: 0,
+    totalDraws: 1,
+    totalLosses: 0,
+    goalsFavor: 1,
+    goalsOwn: 1,
+    goalsBalance: 0,
+    efficiency: 33.33,
+  },
+  {
+    name: 'Botafogo',
+    totalGames: 1,
+    totalPoints: 1,
+    totalVictories: 0,
+    totalDraws: 1,
+    totalLosses: 0,
+    goalsFavor: 0,
+    goalsOwn: 0,
+    goalsBalance: 0,
+    efficiency: 33.33,
+  },
+  {
+    name: 'Bahia',
+    totalGames: 1,
+    totalPoints: 1,
+    totalVictories: 0,
+    totalDraws: 1,
+    totalLosses: 0,
+    goalsFavor: 0,
+    goalsOwn: 0,
+    goalsBalance: 0,
+    efficiency: 33.33,
+  },
+  {
+    name: 'Napoli-SC',
+    totalGames: 1,
+    totalPoints: 0,
+    totalVictories: 0,
+    totalDraws: 0,
+    totalLosses: 1,
+    goalsFavor: 0,
+    goalsOwn: 3,
+    goalsBalance: -3,
+    efficiency: 0,
+  },
+];
+
 export {
-  leaderboardHome,
-  leaderboardAway,
+  homeLeaderboard,
+  awayLeaderboard,
+  fullLeaderboard,
 };

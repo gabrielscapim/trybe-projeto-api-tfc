@@ -6,7 +6,7 @@ import chaiHttp = require('chai-http');
 import { app } from '../app';
 import SequelizeMatch from '../database/models/SequelizeMatch';
 import { finishedMatches } from '../mocks/Matches.mock';
-import { leaderboardAway, leaderboardHome } from '../mocks/Leaderboard.mock'; 
+import { fullLeaderboard, homeLeaderboard, awayLeaderboard } from '../mocks/Leaderboard.mock'; 
 
 chai.use(chaiHttp);
 
@@ -23,7 +23,7 @@ describe('Leaderboard test', function () {
     const { status, body } = await chai.request(app).get('/leaderboard/home');
 
     expect(status).to.equal(200);
-    expect(body).to.deep.equal(leaderboardHome);
+    expect(body).to.deep.equal(homeLeaderboard);
   })
 
   it('Should return sorted away leaderboard', async function() {
@@ -32,6 +32,15 @@ describe('Leaderboard test', function () {
     const { status, body } = await chai.request(app).get('/leaderboard/away');
 
     expect(status).to.equal(200);
-    expect(body).to.deep.equal(leaderboardAway);
+    expect(body).to.deep.equal(awayLeaderboard);
+  })
+
+  it('Should return sorted full leaderboard', async function() {
+    sinon.stub(SequelizeMatch, 'findAll').resolves(finishedMatches as any);
+
+    const { status, body } = await chai.request(app).get('/leaderboard');
+
+    expect(status).to.equal(200);
+    expect(body).to.deep.equal(fullLeaderboard);
   })
 })

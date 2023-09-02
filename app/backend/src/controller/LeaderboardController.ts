@@ -10,8 +10,7 @@ export default class LeaderboardController {
 
   public async findLeaderboard(req: Request, res: Response) {
     try {
-      const { main } = req.params;
-      const serviceResponse = await this.leaderboardService.findLeaderboard(main);
+      const serviceResponse = await this.leaderboardService.findLeaderboard(req.params.main);
 
       if (serviceResponse.status !== 'SUCCESSFUL') {
         return res.status(404).json(serviceResponse.data);
